@@ -65,4 +65,15 @@ apiRouter.get('/companies', (req, res) => {
 })
 
 
+apiRouter.get('/jobsdata', function(req, res){
+	const db = req.app.locals.db
+
+	db
+		.select()
+		.table('jobsdata')
+		.then(function(data) {
+			res.json(data)
+		})
+});
+
 module.exports = apiRouter
