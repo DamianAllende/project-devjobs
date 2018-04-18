@@ -10,7 +10,7 @@ exports.up = function(knex, Promise) {
   		t.string('location');
   		t.integer('salary');
   		t.boolean('fullTime');
-  		t.integer('companyId');
+  		//t.integer('companyId');
   		t.timestamp('times')
   	     .notNullable()
   	     .defaultTo(knex.fn.now());

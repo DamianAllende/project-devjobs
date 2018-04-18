@@ -98,9 +98,18 @@ apiRouter.get('/jobsdata', function(req, res) {
 // 		})
 // });
 
+// apiRouter.get('/companydata', function(req, res) {
+//   Company
+//     .query()
+//     .then(function(data) {
+//       res.json(data)
+//     })
+// })
+
 apiRouter.get('/companydata', function(req, res) {
   Company
     .query()
+    .eager('jobsdata')
     .then(function(data) {
       res.json(data)
     })
