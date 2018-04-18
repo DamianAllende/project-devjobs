@@ -15,7 +15,7 @@ exports.down = function(knex, Promise) {
 	 return knex
   	.schema
   	.table('jobsdata', function(t){
-  		t.dropForeing('companyId')
+  		t.dropForeign('companyId')
   		t.dropColumn('companyId')
  	})
   
