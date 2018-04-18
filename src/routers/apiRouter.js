@@ -1,5 +1,7 @@
 const Router = require('express').Router
 const apiRouter = Router()
+const Job = require('../models/Job')
+const Company = require('../models/Company')
 
 const _jobsData_ = 
 					[
@@ -65,26 +67,43 @@ apiRouter.get('/companies', (req, res) => {
 })
 
 
-apiRouter.get('/jobsdata', function(req, res){
-	const db = req.app.locals.db
+// apiRouter.get('/jobsdata', function(req, res){
+// 	const db = req.app.locals.db
 
-	db
-		.select()
-		.table('jobsdata')
-		.then(function(data) {
-			res.json(data)
-		})
-});
+// 	db
+// 		.select()
+// 		.table('jobsdata')
+// 		.then(function(data) {
+// 			res.json(data)
+// 		})
+// });
 
-apiRouter.get('/companydata', function(req, res){
-	const db = req.app.locals.db
 
-	db
-		.select()
-		.table('companydata')
-		.then(function(data) {
-			res.json(data)
-		})
-});
+apiRouter.get('/jobsdata', function(req, res) {
+  Job
+    .query()
+    .then(function(data) {
+      res.json(data)
+    })
+})
+
+// apiRouter.get('/companydata', function(req, res){
+// 	const db = req.app.locals.db
+
+// 	db
+// 		.select()
+// 		.table('companydata')
+// 		.then(function(data) {
+// 			res.json(data)
+// 		})
+// });
+
+apiRouter.get('/companydata', function(req, res) {
+  Company
+    .query()
+    .then(function(data) {
+      res.json(data)
+    })
+})
 
 module.exports = apiRouter
