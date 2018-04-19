@@ -5,6 +5,8 @@ const { Model } = require('objection')
 
 const ejs = require('ejs')
 
+const bodyParser = require('body-parser')
+
 const connectToDatabase = require ('./src/database/dbConnect')
 const knexFile = require('./knexfile')
 
