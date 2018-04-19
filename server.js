@@ -25,6 +25,9 @@ app.locals.db = appConnectionWithDatabase
 app.engine('ejs', ejs.renderFile)
 app.set('view engine', 'ejs')
 app.set('views', `${__dirname}/src/views`)
+
+app.use(bodyParser.json())
+
 app.use(express.static(`${__dirname}/public`))
 
 app.use('/', pageRouter)

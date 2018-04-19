@@ -25,13 +25,71 @@ const Company = require('../models/Company')
 // });
 
 
-apiRouter.get('/jobs', function(req, res) {
+function allJobs(req, res) {
   Job
     .query()
     .then(function(data) {
       res.json(data)
     })
-})
+}
+
+function getSingleJobs(req, res) {
+   const id  = parseInt(req.params.jobsId)
+ 
+   Job
+     .query()
+     .findById(id)
+     .then(function(job){
+       res.json(job).status(200)
+     })
+
+}
+
+function createNewJobs(req, res) {
+  Job
+    .query()
+    .insert(req.body) //INSERT INTO
+    .then(function(newJob){
+      res.json(newJob).status(200)
+      console.log('Tweet save...')
+    })
+}
+
+function updateJob(req, res) {
+  const id = parseInt(req.params.jobsId)
+  const newData = req.body
+  Job
+    .query()
+    .updateAndFetchById(id, newData)
+    .then(function(jobUpdated) {
+      res.json(jobUpdated).status(200)
+    })
+
+}
+
+function deleteJobs(req, res) {
+   const id = parseInt(req.params.jobsId)
+
+  Job
+    .query()
+    .deleteById(id)
+    .then(function(rowsDeleted) {
+      res.json({
+        jobsDeleted: rowsDeleted
+      }).status(200)
+    //   res.json(rowsDeleted).status(200)
+    })
+}
+
+
+
+ apiRouter
+   .get('/jobs', allJobs)
+   .get('/jobs/:jobsId', getSingleJobs)
+   .post('/jobs', createNewJobs)
+   .put('/jobs/:jobsId', updateJob)
+   .delete('/jobs/:jobsId', deleteJobs)
+
 
 // apiRouter.get('/companydata', function(req, res){
 // 	const db = req.app.locals.db
@@ -62,15 +120,15 @@ apiRouter.get('/company', function(req, res) {
 })
 
 
-apiRouter.get('/jobs/:jobsId', function(req, res){
-  const jobsId  = parseInt(req.params.jobsId)
-  //console.log(typeof tweetId)
-  Job
-    .query()
-    .where('id','=', jobsId)
-    .then(function(data){
-      res.json(data)
-    })
-})
+// apiRouter.get('/jobs/:jobsId', function(req, res){
+//   const jobsId  = parseInt(req.params.jobsId)
+//   //console.log(typeof tweetId)
+//   Job
+//     .query()
+//     .where('id','=', jobsId)
+//     .then(function(data){
+//       res.json(data)
+//     })
+// })
 
 module.exports = apiRouter
