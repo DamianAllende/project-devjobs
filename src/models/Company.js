@@ -8,12 +8,12 @@ class Company extends Model{
 		const Job = require('./Job')
 
 		return{
-			Job: {
+			jobsdata: {
 				relation: Model.HasManyRelation,
 				modelClass: Job,
 				join: {
 					from: 'companydata.id',
-					to: 'Job.listId'
+					to: 'jobsdata.companyId'
 				}
 			}
 		}
